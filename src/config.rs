@@ -17,6 +17,46 @@ impl PyExecutionConfig{
         }
     }
 
+    #[getter]
+    fn get_target_partitions(&self) -> usize {
+        self.cfg.target_partitions
+    }
+
+    #[setter]
+    fn set_target_partitions(&mut self, n: usize) {
+        self.cfg.target_partitions = n;
+    }
+
+    #[getter]
+    fn get_repartition_joins(&self) -> bool {
+        self.cfg.repartition_joins
+    }
+
+    #[setter]
+    fn set_repartition_joins(&mut self, enabled: bool) {
+        self.cfg.repartition_joins = enabled;
+    }
+
+    #[getter]
+    fn get_repartition_aggregations(&self) -> bool{
+        self.cfg.repartition_aggregations
+    }
+
+    #[setter]
+    fn set_repartition_aggregations(&mut self, enabled: bool) {
+        self.cfg.repartition_aggregations = enabled;
+    }
+
+    #[getter]
+    fn get_repartition_windows(&self) -> bool {
+        self.cfg.repartition_windows
+    }
+
+    #[setter]
+    fn set_repartition_windows(&mut self, enabled: bool) {
+        self.cfg.repartition_windows = enabled;
+    }
+
     /// Customize target_partitions
     fn with_target_partitions(&self, n: usize) -> PyExecutionConfig {
         let mut result = self.to_owned();
@@ -67,6 +107,13 @@ impl PyExecutionConfig{
     pub fn with_repartition_aggregations(&self, enabled: bool) -> PyExecutionConfig {
         let mut result = self.to_owned();
         result.cfg = result.cfg.with_repartition_aggregations(enabled);
+        result
+    }
+
+    /// Enables or disables the use of repartitioning for window functions to improve parallelism
+    pub fn with_repartition_windows(&self, enabled: bool) -> PyExecutionConfig {
+        let mut result = self.to_owned();
+        result.cfg = result.cfg.with_repartition_windows(enabled);
         result
     }
 
