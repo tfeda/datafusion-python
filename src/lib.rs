@@ -18,6 +18,7 @@
 use pyo3::prelude::*;
 
 mod catalog;
+mod config;
 mod context;
 mod dataframe;
 mod errors;
@@ -37,6 +38,7 @@ fn _internal(py: Python, m: &PyModule) -> PyResult<()> {
     m.add_class::<catalog::PyCatalog>()?;
     m.add_class::<catalog::PyDatabase>()?;
     m.add_class::<catalog::PyTable>()?;
+    m.add_class::<config::PyExecutionConfig>()?;
     m.add_class::<context::PyExecutionContext>()?;
     m.add_class::<dataframe::PyDataFrame>()?;
     m.add_class::<expression::PyExpr>()?;
