@@ -31,6 +31,7 @@ use datafusion::prelude::CsvReadOptions;
 
 use crate::catalog::PyCatalog;
 use crate::dataframe::PyDataFrame;
+use crate::config::PyExecutionConfig;
 use crate::errors::DataFusionError;
 use crate::udf::PyScalarUDF;
 use crate::utils::wait_for_future;
@@ -52,6 +53,14 @@ impl PyExecutionContext {
             ctx: ExecutionContext::new(),
         }
     }
+
+    #[staticmethod]
+    fn with_config(pycfg: PyExecutionConfig) -> PyExecutionContext {
+        PyExecutionContext {
+            ctx: ExecutionContext::with_config(pycfg.cfg)
+        }
+    }
+
 
     /// Returns a PyDataFrame whose plan corresponds to the SQL statement.
     fn sql(&mut self, query: &str, py: Python) -> PyResult<PyDataFrame> {

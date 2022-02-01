@@ -5,7 +5,7 @@ use datafusion::prelude::ExecutionConfig;
 #[pyclass(name = "ExecutionConfig", module = "datafusion", subclass, unsendable)]
 #[derive(Clone)]
 pub(crate) struct PyExecutionConfig {
-    cfg: ExecutionConfig,
+    pub(crate) cfg: ExecutionConfig,
 }
 
 #[pymethods]
